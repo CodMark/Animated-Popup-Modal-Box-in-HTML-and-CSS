@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Popup Modal Box in HTML CSS & JavaScript</title>
+</head>
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+
+    section {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    section .profile {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    section.show .profile {
+        display: none;
+    }
+
+    section .profile .profile-img {
+        height: 6rem;
+        width: 6rem;
+        border-radius: 50%;
+        background: #0000008a;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    .profile .profile-img img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #fff;
+    }
+
+    .profile .name,
+    .profile .profession {
+        font-size: 18px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .profile .profession {
+        font-weight: 400;
+        margin-top: -6px;
+    }
+
+    .profile .button {
+        display: flex;
+        align-items: center;
+        padding: 12px 20px;
+        background: #0000008a;
+        margin-top: 10px;
+        border-radius: 9px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .profile .button:hover {
+        background: #000;
+    }
+
+    .profile .button button {
+        background: none;
+        outline: none;
+        border: none;
+        font-size: 20px;
+        color: #fff;
+        pointer-events: none;
+    }
+
+    section .popup-outer {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        opacity: 0;
+        pointer-events: none;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        transform: scale(1.2);
+        transition: all 0.3s ease-in-out;
+    }
+
+    section.show .popup-outer {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1);
+    }
+
+    section .popup-box {
+        position: relative;
+        padding: 30px;
+        max-width: 380px;
+        width: 100%;
+        background: #fff;
+        border-radius: 12px;
+    }
+
+    .popup-box .close {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        font-size: 24px;
+        color: #b4b4b4;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .popup-box .close:hover {
+        color: #333;
+    }
+
+    .popup-box .text {
+        margin-top: 13px;
+    }
+
+    section .popup-box .profile-text {
+        display: flex;
+        align-items: center;
+    }
+
+    section .popup-box img {
+        height: 65px;
+        width: 65px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #ff0076;
+    }
+
+    .profile-text .text {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+    }
+
+    .profile-text .text .profession {
+        font-size: 12px;
+        font-weight: 500;
+        opacity: 0.6;
+    }
+
+    section .popup-box .button {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 15px;
+    }
+
+    .popup-box .button button {
+        outline: none;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
+        background: #6f93f6;
+        margin-left: 8px;
+        color: #fff;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .button button.No {
+        background: #0000008a;
+    }
+
+    .button button.No:hover {
+        background: #000;
+    }
+
+    .button button.yes:hover {
+        background: #275df1;
+    }
+</style>
+
+<body>
+    <section>
+        <div class="profile">
+            <div class="profile-img">
+                <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfXuL9uc_e2E1u2RawdgRby98m_UpbD7OHQhA3SppH6pVoscY1A5bdq2MnbV9x8Gko4Jno32QoLtXN3usfm-P7fosY_w8lCZiLRcxB1JsqU285XZKzKQtaXI6Yqha5B3vsMtlN0Ifv3FMuyYOmZiES1lx6JmLJbfCNNNCQ7agtZ5pbWQ/s1600/Group%202.png" alt="">
+            </div>
+            <h2>Code Web 4u</h2>
+            <span class="profession">Web & Web Designer</span>
+            <div id="hireBtn" class="button">
+                <button>Subscribe</button>
+            </div>
+        </div>
+
+        <!-- popup box start -->
+        <div class="popup-outer">
+            <div class="popup-box">
+                <span class="close" id="close">&times;</span>
+                <div class="profile-text">
+                    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgfXuL9uc_e2E1u2RawdgRby98m_UpbD7OHQhA3SppH6pVoscY1A5bdq2MnbV9x8Gko4Jno32QoLtXN3usfm-P7fosY_w8lCZiLRcxB1JsqU285XZKzKQtaXI6Yqha5B3vsMtlN0Ifv3FMuyYOmZiES1lx6JmLJbfCNNNCQ7agtZ5pbWQ/s1600/Group%202.png" alt="">
+                    <div class="text">
+                        <h2>Code Web 4u</h2>
+                        <span class="profession">Web & Web Designer</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text">Do you want to subscribe my youtube channel?</p>
+                    <div class="button">
+                        <button id="close" class="No">No</button>
+                        <button class="yes"><a href="https://www.youtube.com/c/CodMark4"
+                                target="_blank">Yes</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script>
+    const section = document.querySelector("section"),
+        hireBtn = section.querySelector("#hireBtn"),
+        closeBtn = section.querySelectorAll("#close")
+
+    hireBtn.addEventListener("click", () => {
+        section.classList.add("show");
+    });
+
+    closeBtn.forEach(cBtn => {
+        cBtn.addEventListener("click", () => {
+            section.classList.remove("show");
+        });
+    });
+</script>
+
+</html>
